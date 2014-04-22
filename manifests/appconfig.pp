@@ -43,18 +43,18 @@ class riak::appconfig(
       pb_port => 8087,
     },
     riak_core => {
-      ring_state_dir     => "${$riak::params::data_dir}/ring",
+      ring_state_dir     => "${$riak::data_dir}/ring",
       ring_creation_size => 64,
       http               => {
         "__string_${$::ipaddress}" => 8098,
       },
       handoff_port      => 8099,
       dtrace_support    => false,
-      platform_bin_dir  => $riak::params::bin_dir,
-      platform_data_dir => $riak::params::data_dir,
-      platform_etc_dir  => $riak::params::etc_dir,
-      platform_lib_dir  => $riak::params::lib_dir,
-      platform_log_dir  => $riak::params::log_dir,
+      platform_bin_dir  => $riak::bin_dir,
+      platform_data_dir => $riak::data_dir,
+      platform_etc_dir  => $riak::etc_dir,
+      platform_lib_dir  => $riak::lib_dir,
+      platform_log_dir  => $riak::log_dir,
     },
     riak_kv => {
       storage_backend       => '__atom_riak_kv_bitcask_backend',
@@ -75,23 +75,23 @@ class riak::appconfig(
       enabled => false,
     },
     merge_index => {
-      data_root            => "${$riak::params::data_dir}/merge_index",
+      data_root            => "${$riak::data_dir}/merge_index",
       buffer_rollover_size => 1048576,
       max_compact_segments => 20,
     },
     bitcask => {
-      data_root => "${$riak::params::data_dir}/bitcask",
+      data_root => "${$riak::data_dir}/bitcask",
     },
     eleveldb => {
-      data_root => "${$riak::params::data_dir}/leveldb",
+      data_root => "${$riak::data_dir}/leveldb",
     },
     lager => {
       handlers => {
         lager_file_backend   => [
-          ['__tuple', $riak::params::error_log, '__atom_error', 10485760, '$D0', 5],
-          ['__tuple', $riak::params::info_log,  '__atom_info', 10485760, '$D0', 5],
+          ['__tuple', $riak::error_log, '__atom_error', 10485760, '$D0', 5],
+          ['__tuple', $riak::info_log,  '__atom_info', 10485760, '$D0', 5],
         ]},
-      crash_log             => $riak::params::crash_log,
+      crash_log             => $riak::crash_log,
       crash_log_msg_side    => 65536,
       crash_log_size        => 10485760,
       crash_log_date        => '$D0',
