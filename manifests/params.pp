@@ -65,6 +65,8 @@ class riak::params {
 
   $service_autorestart = true
 
+  $manage_pam_limits = true
+  $manage_service_limits = true
   $ulimit = 4096
   $limits_template = 'riak/limits.conf.erb'
 }

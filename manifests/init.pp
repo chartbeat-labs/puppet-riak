@@ -99,6 +99,8 @@ class riak (
   $disable             = false,
   $disableboot         = false,
   $absent              = false,
+  $manage_pam_limits   = hiera('manage_pam_limits', $riak::params::manage_pam_limits),
+  $manage_service_limits = hiera('manage_service_limits', $riak::params::manage_service_limits),
   $ulimit              = $riak::params::ulimit,
   $limits_template     = $riak::params::limits_template
 ) inherits riak::params {

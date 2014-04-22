@@ -10,6 +10,8 @@ class riak::config (
   $absent       = false,
   $manage_repos = true,
 ) {
+  $manage_pam_limits = $riak::manage_pam_limits
+  $manage_service_limits = $riak::manage_service_limits
   $ulimit = $riak::ulimit
   $limits_template = $riak::limits_template
 
@@ -68,10 +70,21 @@ class riak::config (
     }
   }
 
-  file { '/etc/security/limits.conf':
-    owner   => 'root',
-    group   => 'root',
-    mode    => '644',
-    content => template($limits_template)
+  if $manage_pam_limits {
+    file { '/etc/security/limits.conf':
+      owner   => 'root',
+      group   => 'root',
+      mode    => '644',
+      content => template($limits_template)
+    }
+  }
+
+  if $manage_service_limits {
+    file { '/etc/default/riak':
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => "ulimit -n ${ulimit}",
+    }
   }
 }
