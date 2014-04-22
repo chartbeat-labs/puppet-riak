@@ -11,3 +11,5 @@ graphs/
 metadata.json
 .project
 *.dot
+.bundle
+vendor/
